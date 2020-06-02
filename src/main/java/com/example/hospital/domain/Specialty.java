@@ -8,8 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
@@ -21,14 +21,17 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @Entity
-public class Hospital {
+public class Specialty {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   
   @NotBlank(message = "Name is mandatory")
-  @Column(nullable = false, unique = true, length = 50)
+  @Column(nullable = false, unique = true, length = 100)
   private String name;
+  
+  private String description;
+  private String avatarUrl;
   
   @NotNull
   @Column(nullable = false)
@@ -38,13 +41,13 @@ public class Hospital {
   @ManyToOne
   @EqualsAndHashCode.Exclude private User createdBy;
   
-  @OneToMany(mappedBy = "hospital")
+  @ManyToMany(mappedBy = "specialties")
   @EqualsAndHashCode.Exclude private Set<Doctor> doctors = new HashSet<>();
 
-  public Hospital() {
+  public Specialty() {
   }
 
-  public Hospital(String name, LocalDateTime createdOn, User createdBy) {
+  public Specialty(String name, LocalDateTime createdOn, User createdBy) {
     this.name = name;
     this.createdOn = createdOn;
     this.createdBy = createdBy;
