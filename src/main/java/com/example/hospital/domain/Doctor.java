@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
@@ -63,6 +64,9 @@ public class Doctor {
       joinColumns = { @JoinColumn(name = "doctor_id") },
       inverseJoinColumns = { @JoinColumn(name = "specialty_id")} )
   @EqualsAndHashCode.Exclude private Set<Specialty> specialties = new HashSet<>();
+  
+  @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
+  @EqualsAndHashCode.Exclude private Set<Appointment> appointments = new HashSet<>();
 
   public Doctor() {
   }

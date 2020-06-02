@@ -43,6 +43,9 @@ public class Hospital {
   
   @OneToMany(mappedBy = "hospital")
   @EqualsAndHashCode.Exclude private Set<Patient> patients = new HashSet<>();
+  
+  @OneToMany(mappedBy = "hospital")
+  @EqualsAndHashCode.Exclude private Set<Appointment> appointments = new HashSet<>();
 
   public Hospital() {
   }
