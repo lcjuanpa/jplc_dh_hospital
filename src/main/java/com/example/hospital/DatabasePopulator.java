@@ -2,10 +2,12 @@ package com.example.hospital;
 
 import com.example.hospital.domain.Doctor;
 import com.example.hospital.domain.Hospital;
+import com.example.hospital.domain.Patient;
 import com.example.hospital.domain.Specialty;
 import com.example.hospital.domain.User;
 import com.example.hospital.repository.DoctorRepository;
 import com.example.hospital.repository.HospitalRepository;
+import com.example.hospital.repository.PatientRepository;
 import com.example.hospital.repository.SpecialtyRepository;
 import com.example.hospital.repository.UserRepository;
 import java.time.LocalDateTime;
@@ -23,13 +25,16 @@ public class DatabasePopulator implements CommandLineRunner {
   private final HospitalRepository hospitalRepository;
   private final DoctorRepository doctorRepository;
   private final SpecialtyRepository specialtyRepository;
+  private final PatientRepository patientRepository;
 
   public DatabasePopulator(UserRepository userRepository, HospitalRepository hospitalRepository,
-      DoctorRepository doctorRepository, SpecialtyRepository specialtyRepository) {
+      DoctorRepository doctorRepository, SpecialtyRepository specialtyRepository,
+      PatientRepository patientRepository) {
     this.userRepository = userRepository;
     this.hospitalRepository = hospitalRepository;
     this.doctorRepository = doctorRepository;
     this.specialtyRepository = specialtyRepository;
+    this.patientRepository = patientRepository;
   }
 
   @Override
@@ -66,6 +71,17 @@ public class DatabasePopulator implements CommandLineRunner {
     doctor3.getSpecialties().add(cardiologist);
     doctor3.getSpecialties().add(oncologist);
     doctorRepository.save(doctor3);
+    
+    Patient patient1 = new Patient("patien one", "lastaname one", "address one", LocalDateTime.now(),
+        user1, hospital1);
+    patientRepository.save(patient1);
+    Patient patient2 = new Patient("patien two", "lastaname two", "address two", LocalDateTime.now(),
+        user1, hospital1);
+    patientRepository.save(patient2);
+    Patient patient3 = new Patient("patien three", "lastaname three", "address three", LocalDateTime.now(),
+        user2, hospital2);
+    patientRepository.save(patient3);
+    
     
   }
   

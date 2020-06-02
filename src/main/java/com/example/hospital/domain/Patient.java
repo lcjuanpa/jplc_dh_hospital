@@ -1,15 +1,14 @@
 package com.example.hospital.domain;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
@@ -21,14 +20,26 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @Entity
-public class Hospital {
+public class Patient {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private Long ig;
   
   @NotBlank(message = "Name is mandatory")
-  @Column(nullable = false, unique = true, length = 50)
+  @Column(nullable = false, length = 20)
   private String name;
+  
+  @NotBlank(message = "Lastname is mandatory")
+  @Column(nullable = false, length = 20)
+  private String lastname;
+  
+  private LocalDateTime birthday;
+  
+  @NotBlank(message = "Address is mandatory")
+  @Column(nullable = false, length = 300)
+  private String address;
+  
+  private String photoUrl;
   
   @NotNull
   @Column(nullable = false)
@@ -38,18 +49,21 @@ public class Hospital {
   @ManyToOne
   @EqualsAndHashCode.Exclude private User createdBy;
   
-  @OneToMany(mappedBy = "hospital")
-  @EqualsAndHashCode.Exclude private Set<Doctor> doctors = new HashSet<>();
-  
-  @OneToMany(mappedBy = "hospital")
-  @EqualsAndHashCode.Exclude private Set<Patient> patients = new HashSet<>();
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "hospital_id")
+  @EqualsAndHashCode.Exclude private Hospital hospital;
 
-  public Hospital() {
+  public Patient() {
   }
-
-  public Hospital(String name, LocalDateTime createdOn, User createdBy) {
+  
+  public Patient(String name, String lastname, String address, LocalDateTime createdOn,
+      User createdBy, Hospital hospital) {
     this.name = name;
+    this.lastname = lastname;
+    this.address = address;
     this.createdOn = createdOn;
     this.createdBy = createdBy;
+    this.hospital = hospital;
   }
 }
