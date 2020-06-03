@@ -1,5 +1,6 @@
 package com.example.hospital.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
@@ -39,8 +41,10 @@ public class Specialty {
   
   @NotNull
   @ManyToOne
+  @JoinColumn(name = "user_id")
   @EqualsAndHashCode.Exclude private User createdBy;
   
+  @JsonIgnore
   @ManyToMany(mappedBy = "specialties")
   @EqualsAndHashCode.Exclude private Set<Doctor> doctors = new HashSet<>();
 

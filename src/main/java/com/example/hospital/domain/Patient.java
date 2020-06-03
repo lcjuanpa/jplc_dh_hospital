@@ -1,11 +1,11 @@
 package com.example.hospital.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +26,7 @@ import lombok.EqualsAndHashCode;
 public class Patient {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long ig;
+  private Long id;
   
   @NotBlank(message = "Name is mandatory")
   @Column(nullable = false, length = 20)
@@ -50,14 +50,17 @@ public class Patient {
   
   @NotNull
   @ManyToOne
+  @JoinColumn(name = "user_id")
   @EqualsAndHashCode.Exclude private User createdBy;
   
+  @JsonIgnore
   @NotNull
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne
   @JoinColumn(name = "hospital_id")
   @EqualsAndHashCode.Exclude private Hospital hospital;
   
-  @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+  @JsonIgnore
+  @OneToMany(mappedBy = "patient")
   @EqualsAndHashCode.Exclude private Set<Appointment> appointments = new HashSet<>();
 
   public Patient() {

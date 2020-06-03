@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
  *
  * @author jplc
  */
-@Component
+//@Component
 public class DatabasePopulator implements CommandLineRunner {
   
   private final UserRepository userRepository;

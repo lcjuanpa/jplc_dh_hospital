@@ -51,6 +51,7 @@ public class Appointment {
   
   @NotNull
   @ManyToOne
+  @JoinColumn(name = "user_id")
   @EqualsAndHashCode.Exclude private User createdBy;
 
   public Appointment() {
