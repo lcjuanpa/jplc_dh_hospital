@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -23,9 +24,9 @@ public class PatientController {
     this.repository = repository;
   }
   
-  @GetMapping("/api/patients")
-  List<Patient> getAll() {
-    return repository.findAll();
+  @GetMapping("/api/patients") // /api/patients?hid=1
+  List<Patient> getAll(@RequestParam(value = "hid") Long hospitalId) {
+    return repository.findByHospitalId(hospitalId);
   }
   
   @PostMapping("/api/patients")

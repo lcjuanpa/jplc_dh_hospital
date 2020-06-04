@@ -1,6 +1,7 @@
 package com.example.hospital.repository;
 
 import com.example.hospital.domain.Doctor;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -9,7 +10,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface DoctorRepository extends JpaRepository<Doctor, Long>{
   
-  Doctor findByName(String name);
+  List<Doctor> findByName(String name);
   
-  Doctor findByLastname(String lastname);
+  List<Doctor> findByLastname(String lastname);
+  
+  List<Doctor> findByHospitalId(Long id);
 }
