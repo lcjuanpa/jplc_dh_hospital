@@ -29,6 +29,16 @@ public class DoctorController {
     return repository.findByHospitalId(hospitalId);
   }
   
+  @GetMapping("/api/doctors/findByName") // /api/doctors?hid=1
+  List<Doctor> getAllByName(@RequestParam(value = "name") String name) {
+    return repository.findByName(name);
+  }
+  
+  @GetMapping("/api/doctors/findByLastname") // /api/doctors?hid=1
+  List<Doctor> getAllByLastname(@RequestParam(value = "lastname") String lastname) {
+    return repository.findByLastname(lastname);
+  }
+  
   @PostMapping("/api/doctors")
   Doctor create(@RequestBody Doctor doctor) {
     return repository.save(doctor);

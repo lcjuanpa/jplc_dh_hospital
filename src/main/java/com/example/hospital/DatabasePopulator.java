@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
  *
  * @author jplc
  */
-//@Component
+@Component
 public class DatabasePopulator implements CommandLineRunner {
   
   private final UserRepository userRepository;
@@ -49,53 +49,53 @@ public class DatabasePopulator implements CommandLineRunner {
     User user2 = new User("user2", "user2pass", "administrator");
     userRepository.save(user2);
     
-    Hospital hospital1 = new Hospital("Hospital No. 1", LocalDateTime.now(), user1);
+    Hospital hospital1 = new Hospital("Hospital Viedma", LocalDateTime.now(), user1);
     hospitalRepository.save(hospital1);
-    Hospital hospital2 = new Hospital("Hospital No. 2", LocalDateTime.now(), user1);
+    Hospital hospital2 = new Hospital("Hospital Obrero Nro 2", LocalDateTime.now(), user1);
     hospitalRepository.save(hospital2);
     
-    Specialty dermatologist = new Specialty("dermatologist", LocalDateTime.now(), user1);
+    Specialty dermatologist = new Specialty("Dermatologia", LocalDateTime.now(), user1);
     specialtyRepository.save(dermatologist);
-    Specialty cardiologist = new Specialty("cardiologist", LocalDateTime.now(), user1);
+    Specialty cardiologist = new Specialty("Cardiologia", LocalDateTime.now(), user1);
     specialtyRepository.save(cardiologist);
-    Specialty oncologist = new Specialty("oncologist", LocalDateTime.now(), user2);
+    Specialty oncologist = new Specialty("Oncologia", LocalDateTime.now(), user2);
     specialtyRepository.save(oncologist);
     
-    Doctor doctor1 = new Doctor("doctor uno", "lastname uno", "address 1", LocalDateTime.now(),
+    Doctor doctor1 = new Doctor("Juan", "Flores", "Av. Blanco Galindo E-121", LocalDateTime.now(),
         user1, hospital1);
     doctor1.getSpecialties().add(dermatologist);
     doctorRepository.save(doctor1);
     
-    Doctor doctor2 = new Doctor("doctor dos", "lastname dos", "address 2", LocalDateTime.now(),
+    Doctor doctor2 = new Doctor("Max", "Peredo", "Av. San Martin N23", LocalDateTime.now(),
         user1, hospital1);
     doctor2.getSpecialties().add(cardiologist);
     doctorRepository.save(doctor2);
     
-    Doctor doctor3 = new Doctor("doctor tres", "lastname tres", "address 3", LocalDateTime.now(),
+    Doctor doctor3 = new Doctor("Fredy", "Flores", "Calle S/N", LocalDateTime.now(),
         user2, hospital2);
     doctor3.getSpecialties().add(cardiologist);
     doctor3.getSpecialties().add(oncologist);
     doctorRepository.save(doctor3);
     
-    Patient patient1 = new Patient("patien one", "lastaname one", "address one", LocalDateTime.now(),
+    Patient patient1 = new Patient("Neysa", "Aguilar", "Calle S/N", LocalDateTime.now(),
         user1, hospital1);
     patientRepository.save(patient1);
-    Patient patient2 = new Patient("patien two", "lastaname two", "address two", LocalDateTime.now(),
+    Patient patient2 = new Patient("Jorge", "Aguilar", "Calle S/N", LocalDateTime.now(),
         user1, hospital1);
     patientRepository.save(patient2);
-    Patient patient3 = new Patient("patien three", "lastaname three", "address three", LocalDateTime.now(),
+    Patient patient3 = new Patient("Roberto", "Morado", "Pachieri E34", LocalDateTime.now(),
         user2, hospital2);
     patientRepository.save(patient3);
     
-    Appointment appointment1 = new Appointment("appointment description one",
+    Appointment appointment1 = new Appointment("Cita para controlar manchas",
         LocalDateTime.of(2020, Month.JUNE, 15, 8, 0), hospital1,
         patient1, doctor1, LocalDateTime.now(), user1);
     appointmentRepository.save(appointment1);
-    Appointment appointment2 = new Appointment("appointment description two",
+    Appointment appointment2 = new Appointment("Control de rutina",
         LocalDateTime.of(2020, Month.JUNE, 15, 9, 0), hospital1,
         patient2, doctor1, LocalDateTime.now(), user1);
     appointmentRepository.save(appointment2);
-    Appointment appointment3 = new Appointment("appointment description two",
+    Appointment appointment3 = new Appointment("Paciente agitado al correr, revision corazon",
         LocalDateTime.of(2020, Month.JUNE, 16, 14, 30), hospital2,
         patient3, doctor2, LocalDateTime.now(), user1);
     appointmentRepository.save(appointment3);

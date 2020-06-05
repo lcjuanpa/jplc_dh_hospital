@@ -1,6 +1,8 @@
 package com.example.hospital.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -55,13 +57,13 @@ public class Doctor {
   @JoinColumn(name = "user_id")
   @EqualsAndHashCode.Exclude private User createdBy;
   
-  @JsonIgnore
+  
   @NotNull
   @ManyToOne
   @JoinColumn(name = "hospital_id")
   @EqualsAndHashCode.Exclude private Hospital hospital;
   
-  @JsonIgnore
+  
   @ManyToMany
   @JoinTable(name = "doctor_specialty",
       joinColumns = { @JoinColumn(name = "doctor_id") },

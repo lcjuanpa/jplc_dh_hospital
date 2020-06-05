@@ -1,5 +1,6 @@
 package com.example.hospital.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,15 +32,18 @@ public class Appointment {
   @NotNull(message = "Date Time is mandatory")
   private LocalDateTime dateTime;
   
+  
   @NotNull(message = "Hospital is mandatory")
   @ManyToOne
   @JoinColumn(name = "hospital_id")
   @EqualsAndHashCode.Exclude private Hospital hospital;
   
+  
   @NotNull(message = "Patient is mandatory")
   @ManyToOne
   @JoinColumn(name = "patient_id")
   @EqualsAndHashCode.Exclude private Patient patient;
+  
   
   @NotNull(message = "Doctor is mandatory")
   @ManyToOne
